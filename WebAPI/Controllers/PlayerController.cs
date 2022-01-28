@@ -18,10 +18,11 @@ namespace WebAPI.Controllers
             _bl = bl;
         }
         // GET: api/<UserController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("GetPlayersByAVGResult")]
+        public List<Player> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Player> rankedPlayersResult = _bl.GetPlayersByAVGResult;
+            return rankedPlayersResult;
         }
 
         // GET api/<PlayerController>/5
