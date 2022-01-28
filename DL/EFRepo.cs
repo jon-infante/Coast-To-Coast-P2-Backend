@@ -11,5 +11,12 @@ public class EFRepo : IRepo
         _context = context;
     }
 
-    
+
+    public Player AddNewPlayerAccount(Player playerToAdd)
+    {
+        _context.Add(playerToAdd);
+        _context.SaveChanges();
+
+        return playerToAdd;
+    }
 }
