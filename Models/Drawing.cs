@@ -18,7 +18,7 @@ public class Drawing
         public string GoogleResponse { get; set; }
 
         //each int is a user ID
-        public List<int> Likes { get; set; }
+        public List<Like> Likes { get; set; }
 
         public string Date { get; set; }
 

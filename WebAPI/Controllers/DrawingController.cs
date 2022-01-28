@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DL;
+using BL;
+using Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +11,70 @@ namespace WebAPI.Controllers
     [ApiController]
     public class DrawingController : ControllerBase
     {
-        // GET: api/<DrawingController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IBL _bl;
+        public DrawingController(IBL bl)
         {
-            return new string[] { "value1", "value2" };
+            _bl = bl;
+        }
+        // GET: api/<DrawingController>
+        [HttpGet("{id}")]
+        public ActionResult<Drawing> GetDrawingByID(int DrawingID)
+        {
+            Drawing drawing = _bl.GetDrawingByID(DrawingID);
+
+            if (drawing != null)
+            {
+                return Ok(drawing);
+            }
+            //Not found
+            return NoContent();
+                
         }
 
-        // GET api/<DrawingController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<DrawingController>
+        [HttpGet("{playerid}")]
+        public ActionResult<List<Drawing>> GetAllDrawingsByUserID(int PlayerID)
         {
-            return "value";
+            List<Drawing> allDrawings = _bl.GetAllDrawingsByUserID(PlayerID);
+
+            if (allDrawings != null)
+            {
+                return Ok(allDrawings);
+            }
+            //Not found
+            return NoContent();
+
+        }
+        // GET: api/<DrawingController>
+        [HttpGet("{wallpostid}")]
+        public ActionResult<List<Drawing>> GetAllDrawingsByWallPostID(int WallPostID)
+        {
+            List<Drawing> allDrawings = _bl.GetAllDrawingsByWallPostID(WallPostID);
+
+            if (allDrawings != null)
+            {
+                return Ok(allDrawings);
+            }
+            //Not found
+            return NoContent();
+
         }
 
         // POST api/<DrawingController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult PostDrawing([FromBody] Drawing drawingToAdd)
         {
+            _bl.AddDrawing(drawingToAdd);
+            return Ok(drawingToAdd);
         }
 
-        // PUT api/<DrawingController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<DrawingController>/5
+        // DELETE api/<DrawingController>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int DrawingID)
         {
+            _bl.DeleteDrawingByID(DrawingID);
+            return Ok();
         }
     }
 }
