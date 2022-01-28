@@ -31,7 +31,7 @@ public class P2BL : IBL
         _dl.DeleteDrawingByID(DrawingID);
     }
 
-    void AddWallpost(WallPost wallpostToAdd) {
+    public void AddWallpost(WallPost wallpostToAdd) {
         _dl.AddWallpost(wallpostToAdd);
     }
 
@@ -47,7 +47,7 @@ public class P2BL : IBL
         return _dl.GetWallpostByKeyword(Key);
     }
 
-    void DeleteWallpostByID(int WallpostID) {
+    public void DeleteWallpostByID(int WallpostID) {
         _dl.DeleteWallpostByID(WallpostID);
     }
 }

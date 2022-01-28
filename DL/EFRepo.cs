@@ -57,7 +57,7 @@ public class EFRepo : IRepo
         return _context.WallPosts.Include(r => r.Drawings).AsNoTracking().FirstOrDefault(r => r.ID == WallpostID);
     }
 
-    public List<Wallpost> GetAllWallpostByCategoryID(int CategoryID) {
+    public List<WallPost> GetAllWallpostByCategoryID(int CategoryID) {
         return _context.WallPosts.Include(r => r.Drawings).AsNoTracking().Where(r => r.CategoryID == CategoryID).ToList();
     }
 
