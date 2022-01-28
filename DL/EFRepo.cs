@@ -12,14 +12,17 @@ public class EFRepo : IRepo
     }
     public List<Category> GetAllCategories()
     {
-        return _context.Categories.Select(r => r).ToList();
+        return _context.Categories.Include(r => r.WallPosts).Select(r => r).ToList();
     }
-    public Category AddCategory(Category catToAdd)
+    public Category GetCategoryById(int ID)
+    {
+        return _context.Categories.Include(r => r.WallPosts).FirstOrDefault(r => r.ID == ID);
+    }
+    public void AddCategory(Category catToAdd)
     {
         _context.Add(catToAdd);
         _context.SaveChanges();
-
-        return catToAdd;
+        _context.ChangeTracker.Clear();
     }
     public void DeleteCategory(Category catToDelete)
     {
