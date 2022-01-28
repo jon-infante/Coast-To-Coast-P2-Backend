@@ -47,5 +47,28 @@ public class EFRepo : IRepo
         _context.ChangeTracker.Clear();
     }
 
+    public void AddWallpost(WallPost wallpostToAdd) {
+        _context.Add(wallpostToAdd);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
 
+    public WallPost GetWallpostByID(int WallpostID) {
+        return _context.WallPosts.Include(r => r.Drawings).AsNoTracking().FirstOrDefault(r => r.ID == WallpostID);
+    }
+
+    public List<WallPost> GetAllWallpostByCategoryID(int CategoryID) {
+        return _context.WallPosts.Include(r => r.Drawings).AsNoTracking().Where(r => r.CategoryID == CategoryID).ToList();
+    }
+
+    public WallPost GetWallpostByKeyword(string Key) {
+        return _context.WallPosts.Include(r => r.Drawings).AsNoTracking().FirstOrDefault(r => r.Keyword == Key);
+    }
+
+    public void DeleteWallpostByID(int WallpostID) {
+        WallPost wallpost = GetWallpostByID(WallpostID);
+        _context.Remove(wallpost);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
 }

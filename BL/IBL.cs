@@ -12,4 +12,12 @@ public interface IBL
 
     void DeleteDrawingByID(int DrawingID);
 
+    void AddWallpost(WallPost wallpostToAdd);
+    WallPost GetWallpostByID(int WallpostID);
+
+    List<WallPost> GetAllWallpostByCategoryID(int CategoryID);
+
+    WallPost GetWallpostByKeyword(string Key);
+
+    void DeleteWallpostByID(int WallpostID);
 }
