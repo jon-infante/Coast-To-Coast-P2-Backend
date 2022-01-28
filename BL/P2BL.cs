@@ -34,7 +34,7 @@ public class P2BL : IBL
     public List<Category> SearchCategories(string searchTerm)
     {
         return _dl.SearchCategories(searchTerm);
-
+    }
     public void AddDrawing(Drawing drawingToAdd){
         _dl.AddDrawing(drawingToAdd);
     }

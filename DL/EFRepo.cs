@@ -46,7 +46,7 @@ public class EFRepo : IRepo
 
     public Drawing GetDrawingByID(int DrawingID){
         return  _context.Drawings
-        .Include("Likes")
+        .Include(r => r.Likes)
         .FirstOrDefault(r => r.ID == DrawingID);
     }
        
