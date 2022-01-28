@@ -13,6 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DBContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("PostgreP2")));
 
+builder.Services.AddScoped<IRepo, EFRepo>();
+builder.Services.AddScoped<IBL, P2BL>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
