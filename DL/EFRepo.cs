@@ -54,15 +54,15 @@ public class EFRepo : IRepo
     }
 
     public WallPost GetWallpostByID(int WallpostID) {
-        return _context.WallPosts.FirstOrDefault(r => r.ID == WallpostID);
+        return _context.WallPosts.Include(r => r.Drawings).AsNoTracking().FirstOrDefault(r => r.ID == WallpostID);
     }
 
     public List<Wallpost> GetAllWallpostByCategoryID(int CategoryID) {
-        return _context.WallPosts.Where(r => r.CategoryID == CategoryID).ToList();
+        return _context.WallPosts.Include(r => r.Drawings).AsNoTracking().Where(r => r.CategoryID == CategoryID).ToList();
     }
 
     public WallPost GetWallpostByKeyword(string Key) {
-        return _context.WallPosts.FirstOrDefault(r => r.Keyword == Key);
+        return _context.WallPosts.Include(r => r.Drawings).AsNoTracking().FirstOrDefault(r => r.Keyword == Key);
     }
 
     public void DeleteWallpostByID(int WallpostID) {
