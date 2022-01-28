@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DL.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20220128153417_Player-Like-Model")]
+    partial class PlayerLikeModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,28 +112,6 @@ namespace DL.Migrations
                     b.HasIndex("WallPostID");
 
                     b.ToTable("Drawings");
-                });
-
-            modelBuilder.Entity("Models.Like", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("CommentID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DrawingID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("Models.Player", b =>
