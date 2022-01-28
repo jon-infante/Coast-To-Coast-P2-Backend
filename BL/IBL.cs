@@ -2,7 +2,14 @@ using Models;
 namespace BL;
 
 public interface IBL
-{    
+{   
+    List<Category> GetAllCategories();
+    Category GetCategoryById(int ID);
+    void AddCategory(Category catToAdd);
+    void DeleteCategory(Category catToDelete);
+    List<Category> SearchCategories(string searchTerm);
+
+
     void AddDrawing(Drawing drawingToAdd);
     Drawing GetDrawingByID(int DrawingID);
 
@@ -20,4 +27,5 @@ public interface IBL
     WallPost GetWallpostByKeyword(string Key);
 
     void DeleteWallpostByID(int WallpostID);
+
 }

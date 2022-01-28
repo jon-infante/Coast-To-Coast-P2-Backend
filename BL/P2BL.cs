@@ -10,6 +10,31 @@ public class P2BL : IBL
     {
         _dl = repo;
     }
+
+    public List<Category> GetAllCategories()
+    {
+        return _dl.GetAllCategories();
+    }
+
+    public Category GetCategoryById(int ID)
+    {
+        return _dl.GetCategoryById(ID);
+    }
+
+    public void AddCategory(Category catToAdd)
+    {
+        _dl.AddCategory(catToAdd);
+    }
+
+    public void DeleteCategory(Category catToDelete)
+    {
+        _dl.DeleteCategory(catToDelete);
+    }
+
+    public List<Category> SearchCategories(string searchTerm)
+    {
+        return _dl.SearchCategories(searchTerm);
+
     public void AddDrawing(Drawing drawingToAdd){
         _dl.AddDrawing(drawingToAdd);
     }
