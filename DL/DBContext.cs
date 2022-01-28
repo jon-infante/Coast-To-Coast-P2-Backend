@@ -14,6 +14,7 @@ public class DBContext : DbContext
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Drawing> Drawings { get; set; }
     public DbSet<WallPost> WallPosts { get; set; }
+    public DbSet<Like> Likes { get; set; }
 
 
 }
