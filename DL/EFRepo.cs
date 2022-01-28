@@ -1,4 +1,4 @@
-using Model = Models;
+using Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DL;
@@ -10,6 +10,11 @@ public class EFRepo : IRepo
     {
         _context = context;
     }
+    public Category AddCategory(Category catToAdd)
+    {
+        _context.Add(catToAdd);
+        _context.SaveChanges();
 
-    
+        return catToAdd;
+    }
 }
