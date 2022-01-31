@@ -1,8 +1,10 @@
 using Models;
+
 namespace DL;
 
 public interface IRepo
 {
+    Player AddNewPlayerAccount(Player playerToAdd);
     List<Category> GetAllCategories();
     Category GetCategoryById(int ID);
     void AddCategory(Category catToAdd);
@@ -27,4 +29,10 @@ public interface IRepo
     WallPost GetWallpostByKeyword(string Key);
 
     void DeleteWallpostByID(int WallpostID);
+    Player GetPlayerByID(int playerID);
+    Task<Player?> GetPlayerByIDWithDrawingsAsync(int playerID);
+    void DeletePlayerByID(int PlayerID);
+    List<Player> GetAllPlayers();
+    Task<List<Player>> GetAllPlayersWithDrawingsAsync();
+    Player LoginPlayer(Player player);
 }

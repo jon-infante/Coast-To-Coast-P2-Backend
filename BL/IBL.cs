@@ -28,4 +28,11 @@ public interface IBL
 
     void DeleteWallpostByID(int WallpostID);
 
+    Player AddNewPlayerAccount(Player playerToAdd);
+    List<Player> GetAllPlayers();
+    Task<List<Player>> GetAllPlayersWithDrawingsAsync();
+    Player GetPlayerByID(int PlayerID);
+    Task<Player> GetPlayerByIDWithDrawingsAsync(int PlayerID);
+    void DeletePlayerByID(int PlayerID);
+    Player LoginPlayer(Player player);
 }

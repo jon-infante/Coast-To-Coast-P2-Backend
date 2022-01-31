@@ -11,6 +11,15 @@ public class EFRepo : IRepo
     {
         _context = context;
     }
+
+
+    public Player AddNewPlayerAccount(Player playerToAdd)
+    {
+        _context.Add(playerToAdd);
+        _context.SaveChanges();
+
+        return playerToAdd;
+    }
     
     public List<Category> GetAllCategories()
     {
@@ -98,4 +107,37 @@ public class EFRepo : IRepo
         _context.SaveChanges();
         _context.ChangeTracker.Clear();
     }
-}
+
+    public Player GetPlayerByID(int playerID)
+    {
+        return _context.Players.AsNoTracking().FirstOrDefault(r => r.ID ==playerID);
+    }
+
+    public async Task<Player?> GetPlayerByIDWithDrawingsAsync(int playerID)
+    {
+        return _context.Players.Include("Drawings").FirstOrDefault(r => r.ID == playerID);
+    }
+
+    public void DeletePlayerByID(int PlayerID)
+    {
+        Player player = GetPlayerByID(PlayerID);
+        _context.Remove(player);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
+
+    public List<Player> GetAllPlayers()
+    {
+        return _context.Players.Select(r => r).ToList();
+    }
+
+    public Task<List<Player>> GetAllPlayersWithDrawingsAsync()
+    {
+        return _context.Players.Include(r => r.Drawings).AsNoTracking().Select(r => r).ToListAsync(); ;
+    }
+
+    public Player LoginPlayer(Player player)
+    {
+        return _context.Players.FirstOrDefault(r => r.Username == player.Username && r.Password == player.Password);
+    }
+} 

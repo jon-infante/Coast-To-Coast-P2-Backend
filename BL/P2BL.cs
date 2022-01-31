@@ -1,78 +1,121 @@
-﻿using Models;
+using Models;
 using DL;
 
 namespace BL;
 public class P2BL : IBL
 {
     private IRepo _dl;
-
-    public P2BL(IRepo repo)
-    {
+    public P2BL(IRepo repo) {
         _dl = repo;
-    }
-
-    public List<Category> GetAllCategories()
-    {
-        return _dl.GetAllCategories();
-    }
-
-    public Category GetCategoryById(int ID)
-    {
-        return _dl.GetCategoryById(ID);
     }
 
     public void AddCategory(Category catToAdd)
     {
-        _dl.AddCategory(catToAdd);
+        throw new NotImplementedException();
+    }
+
+    public void AddDrawing(Drawing drawingToAdd)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddWallpost(WallPost wallpostToAdd)
+    {
+        throw new NotImplementedException();
     }
 
     public void DeleteCategory(Category catToDelete)
     {
-        _dl.DeleteCategory(catToDelete);
+        throw new NotImplementedException();
+    }
+
+    public void DeleteDrawingByID(int DrawingID)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DeleteWallpostByID(int WallpostID)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Category> GetAllCategories()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Drawing> GetAllDrawingsByUserID(int UserID)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Drawing> GetAllDrawingsByWallPostID(int WallPostID)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    public List<WallPost> GetAllWallpostByCategoryID(int CategoryID)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Category GetCategoryById(int ID)
+    {
+        throw new NotImplementedException();
+
+    }
+
+    public WallPost GetWallpostByID(int WallpostID)
+    {
+        throw new NotImplementedException();
+    }
+
+    public WallPost GetWallpostByKeyword(string Key)
+    {
+        throw new NotImplementedException();
     }
 
     public List<Category> SearchCategories(string searchTerm)
     {
-        return _dl.SearchCategories(searchTerm);
-    }
-    public void AddDrawing(Drawing drawingToAdd){
-        _dl.AddDrawing(drawingToAdd);
+        throw new NotImplementedException();
     }
 
-
-    public Drawing GetDrawingByID(int DrawingID){
-        return _dl.GetDrawingByID(DrawingID);
-        
+    public Drawing GetDrawingByID(int DrawingID)
+    {
+        throw new NotImplementedException();
+    }
+    public Player AddNewPlayerAccount(Player playerToAdd)
+    {
+        return _dl.AddNewPlayerAccount(playerToAdd);
+    }
+    public Player GetPlayerByID(int PlayerID)
+    {
+        return _dl.GetPlayerByID(PlayerID);
     }
 
-    public List<Drawing> GetAllDrawingsByUserID(int UserID){
-        return _dl.GetAllDrawingsByUserID(UserID);
-    }
-    public List<Drawing> GetAllDrawingsByWallPostID(int WallPostID){
-        return _dl.GetAllDrawingsByWallPostID(WallPostID);
+    public async Task<Player?> GetPlayerByIDWithDrawingsAsync(int PlayerID)
+    {
+        return await _dl.GetPlayerByIDWithDrawingsAsync(PlayerID);
     }
 
-    public void DeleteDrawingByID(int DrawingID){
-        _dl.DeleteDrawingByID(DrawingID);
+    public void DeletePlayerByID(int PlayerID)
+    {
+        _dl.DeletePlayerByID(PlayerID);
     }
 
-    public void AddWallpost(WallPost wallpostToAdd) {
-        _dl.AddWallpost(wallpostToAdd);
+    public List<Player> GetAllPlayers()
+    {
+        return _dl.GetAllPlayers();
     }
 
-    public WallPost GetWallpostByID(int WallpostID) {
-        return _dl.GetWallpostByID(WallpostID);
+    public async Task<List<Player>> GetAllPlayersWithDrawingsAsync()
+    {
+        return await _dl.GetAllPlayersWithDrawingsAsync();
     }
 
-    public List<WallPost> GetAllWallpostByCategoryID(int CategoryID) {
-        return _dl.GetAllWallpostByCategoryID(CategoryID);
-    }
-
-    public WallPost GetWallpostByKeyword(string Key) {
-        return _dl.GetWallpostByKeyword(Key);
-    }
-
-    public void DeleteWallpostByID(int WallpostID) {
-        _dl.DeleteWallpostByID(WallpostID);
+    public Player LoginPlayer(Player player)
+    {
+        return _dl.LoginPlayer(player);
     }
 }
