@@ -10,7 +10,7 @@ public class Comment {
     public int UserID { get; set; }
 
     //Each int is a user ID
-    public List<int> Likes { get; set; }
+    public List<Like> Likes { get; set; }
 
     public string Date { get; set; }
 }
