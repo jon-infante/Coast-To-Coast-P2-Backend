@@ -114,5 +114,8 @@ public class P2BL : IBL
         return await _dl.GetAllPlayersWithDrawingsAsync();
     }
 
-
+    public Player LoginPlayer(Player player)
+    {
+        return _dl.LoginPlayer(player);
+    }
 }

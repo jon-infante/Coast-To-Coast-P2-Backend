@@ -48,6 +48,28 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpGet("Login")]
+        public ActionResult Get(string username, string password)
+        {
+            Player currentPlayer = _bl.LoginPlayer(new Player { Username = username, Password = password });
+            if (currentPlayer.ID <= 0)
+            {
+                return BadRequest("User does not exist");
+            }
+            else
+            {
+                if (currentPlayer.Password == password)
+                {
+                    Log.Information("User with username: " + existing.UserName + " logged in.");
+                    return Ok("You've successfully logged in");
+                }
+                else
+                {
+                    return BadRequest("Incorrect password");
+                }
+            }
+        }
+
         // GET api/<PlayerController>/5
         [HttpGet("GetPlayerByIDWithDrawings/{id}")]
         public async Task<ActionResult<Player>> GetPlayerByIDWithDrawings(int PlayerID)

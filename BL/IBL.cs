@@ -34,5 +34,5 @@ public interface IBL
     Player GetPlayerByID(int PlayerID);
     Task<Player> GetPlayerByIDWithDrawingsAsync(int PlayerID);
     void DeletePlayerByID(int PlayerID);
-
+    Player LoginPlayer(Player player);
 }

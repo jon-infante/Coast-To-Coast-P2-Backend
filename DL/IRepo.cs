@@ -34,4 +34,5 @@ public interface IRepo
     void DeletePlayerByID(int PlayerID);
     List<Player> GetAllPlayers();
     Task<List<Player>> GetAllPlayersWithDrawingsAsync();
+    Player LoginPlayer(Player player);
 }

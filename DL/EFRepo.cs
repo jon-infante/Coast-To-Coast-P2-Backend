@@ -135,4 +135,9 @@ public class EFRepo : IRepo
     {
         return _context.Players.Include(r => r.Drawings).AsNoTracking().Select(r => r).ToListAsync(); ;
     }
-}
+
+    public Player LoginPlayer(Player player)
+    {
+        return _context.Players.FirstOrDefault(r => r.Username == player.Username && r.Password == player.Password);
+    }
+} 
