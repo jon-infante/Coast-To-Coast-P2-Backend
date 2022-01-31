@@ -18,25 +18,56 @@ namespace WebAPI.Controllers
             _bl = bl;
         }
         // GET: api/<UserController>
-        [HttpGet("GetPlayersByAVGResult")]
+        [HttpGet("GetAllPlayers")]
         public List<Player> Get()
         {
-            List<Player> rankedPlayersResult = _bl.GetPlayersByAVGResult;
-            return rankedPlayersResult;
+            List<Player> allPlayers = _bl.GetAllPlayers();
+            return allPlayers;
+        }
+
+        // GET: api/<UserController>
+        [HttpGet("GetAllPlayersWithDrawings")]
+        public async Task<List<Player>> GetAllPlayersWithDrawings()
+        {
+            List<Player> allPlayers = await _bl.GetAllPlayersWithDrawingsAsync();
+            return allPlayers;
         }
 
         // GET api/<PlayerController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("GetPlayerByID/{id}")]
+        public ActionResult<Player> Get(int PlayerID)
         {
-            return "value";
+            Player foundPlayer = _bl.GetPlayerByID(PlayerID);
+            if(foundPlayer != null)
+            {
+                return Ok(foundPlayer);
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+        // GET api/<PlayerController>/5
+        [HttpGet("GetPlayerByIDWithDrawings/{id}")]
+        public async Task<ActionResult<Player>> GetPlayerByIDWithDrawings(int PlayerID)
+        {
+            Player? foundPlayer = await _bl.GetPlayerByIDWithDrawingsAsync(PlayerID);
+            if (foundPlayer != null)
+            {
+                return Ok(foundPlayer);
+            }
+            else
+            {
+                return NoContent();
+            }
         }
 
         // POST api/<PlayerController>
         [HttpPost("CreateNewPlayer")]
-        public void Post([FromBody] Player playerToAdd)
+        public ActionResult Post([FromBody] Player playerToAdd)
         {
-            _bl.AddNewPlayerAccount;
+            _bl.AddNewPlayerAccount(playerToAdd);
             return Created("New Player Successfully Added", playerToAdd);
         }
 
@@ -48,8 +79,10 @@ namespace WebAPI.Controllers
 
         // DELETE api/<PlayerController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(int PlayerID)
         {
+            _bl.DeletePlayerByID(PlayerID);
+            return Ok();
         }
     }
 }
