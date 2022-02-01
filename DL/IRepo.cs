@@ -4,6 +4,7 @@ namespace DL;
 
 public interface IRepo
 {
+    //Like
     void AddLike(Like like);
 
     Like GetLikeByID(int likeID);
@@ -68,5 +69,6 @@ public interface IRepo
     List<Player> GetAllPlayersWithDrawings();
 
     Player LoginPlayer(string username, string password);
-     
+
+    bool IsDuplicate(Player player); 
 }

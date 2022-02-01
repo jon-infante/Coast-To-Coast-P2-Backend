@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BL;
 using Models;
+using CustomExceptions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,13 +11,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
-
         private IBL _bl;
 
         public PlayerController(IBL bl)
         {
             _bl = bl;
         }
+        
         // GET: api/<UserController>
         [HttpGet]
         public ActionResult<List<Player>> GetAllPlayers()
@@ -28,7 +29,6 @@ namespace WebAPI.Controllers
             }
             return NoContent();
         }
-
 
         // GET api/<PlayerController>
         [HttpGet("{id}")]
@@ -44,6 +44,7 @@ namespace WebAPI.Controllers
                 return NoContent();
             }
         }
+        
         // GET api/<PlayerController>
         [HttpGet("login/{username}")]
         public ActionResult GetLoginPlayer(string username, string password)
@@ -70,10 +71,16 @@ namespace WebAPI.Controllers
         [HttpPost]
         public ActionResult PostPlayer([FromBody] Player playerToAdd)
         {
-            _bl.AddNewPlayerAccount(playerToAdd);
-            return Created("New Player Successfully Added", playerToAdd);
+            try
+            {
+                _bl.AddNewPlayerAccount(playerToAdd);
+                return Created("New Player Successfully Added", playerToAdd);
+            }
+            catch (DuplicateRecordException ex)
+            {
+                return Conflict(ex.Message);
+            }
         }
-
 
         // DELETE api/<PlayerController>
         [HttpDelete("{id}")]

@@ -3,7 +3,6 @@ namespace BL;
 
 public interface IBL
 {   
-
     void AddLike(Like like);
 
     Like GetLikeByID(int likeID);
@@ -63,13 +62,11 @@ public interface IBL
 
     Player? GetPlayerByIDWithDrawings(int playerID);
 
-
     void DeletePlayerByID(int playerID);
-
 
     List<Player> GetAllPlayersWithDrawings();
 
-
     Player LoginPlayer(string username, string password);
-     
+
+    bool IsDuplicate(Player player);
 }

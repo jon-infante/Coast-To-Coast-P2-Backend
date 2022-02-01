@@ -24,4 +24,3 @@ public class Drawing
         public string Date { get; set; }
 
 }
-
