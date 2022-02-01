@@ -1,7 +1,8 @@
 using Models;
 using DL;
-
+using CustomExceptions;
 namespace BL;
+
 public class P2BL : IBL
 {
     private IRepo _dl;
@@ -117,7 +118,11 @@ public class P2BL : IBL
 
     //Players
     public void AddNewPlayerAccount(Player playerToAdd){
-        _dl.AddNewPlayerAccount(playerToAdd);
+        if(!_dl.IsDuplicate(playerToAdd))
+        {
+            _dl.AddNewPlayerAccount(playerToAdd);
+        }
+        else throw new DuplicateRecordException("A player with the same Username already exists");
     }
 
     public Player? GetPlayerByIDWithDrawings(int playerID){
@@ -133,9 +138,12 @@ public class P2BL : IBL
         return _dl.GetAllPlayersWithDrawings();
     }
 
-
     public Player LoginPlayer(string username, string password){
         return _dl.LoginPlayer(username, password);
     }
-     
+
+    public bool IsDuplicate(Player player)
+    {
+        return _dl.IsDuplicate(player);
+    }
 }

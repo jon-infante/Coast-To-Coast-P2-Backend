@@ -77,7 +77,6 @@ public class EFRepo : IRepo
         _context.ChangeTracker.Clear();
     }
 
-
     //Categories
     public List<Category> GetAllCategories()
     {
@@ -165,12 +164,14 @@ public class EFRepo : IRepo
         _context.SaveChanges();
         _context.ChangeTracker.Clear();
     }
+    
     //Players
     public void AddNewPlayerAccount(Player playerToAdd)
     {
         _context.Add(playerToAdd);
         _context.SaveChanges();
     }
+    
     public Player? GetPlayerByIDWithDrawings(int playerID)
     {
         return _context.Players.Include(r => r.Drawings).FirstOrDefault(r => r.ID == playerID);
@@ -194,5 +195,9 @@ public class EFRepo : IRepo
         return _context.Players.FirstOrDefault(r => r.Username == username && r.Password == password);
     }
 
+    public bool IsDuplicate(Player player)
+    {
+        Player? dupe = _context.Players.FirstOrDefault(r => r.Username == player.Username);
+        return dupe != null;
+    }
 }
-
