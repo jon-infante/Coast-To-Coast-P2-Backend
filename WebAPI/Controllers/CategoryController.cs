@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DL;
+using BL;
+using Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +11,60 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
+        private IBL _bl;
+        public CategoryController(IBL bl)
+        {
+            _bl = bl;
+        }
         // GET: api/<CategoryController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<List<Category>> GetAllCategories()
         {
-            return new string[] { "value1", "value2" };
+            List<Category> allCategories = _bl.GetAllCategories();
+            if(allCategories.Count != 0)
+            {
+                return Ok(allCategories);
+            }
+            return NoContent();
         }
 
-        // GET api/<CategoryController>/5
+        // GET api/<CategoryController>/
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Category> GetCategoryByID(int id)
         {
-            return "value";
+            Category category = _bl.GetCategoryByID(id);
+            if (category != null)
+            {
+                return Ok(category);
+            }
+            return NoContent();
         }
 
         // POST api/<CategoryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody] Category catToAdd)
         {
+            _bl.AddCategory(catToAdd);
+            return Ok();
+        }
+        // GET api/<CategoryController>/
+        [HttpGet("search/{searchTerm}")]
+        public ActionResult<List<Category>> GetCategoriesBySearchTerm(string searchTerm)
+        {
+            List<Category> selectedCategories = _bl.SearchCategories(searchTerm);
+            if (selectedCategories.Count != 0)
+            {
+                return Ok(selectedCategories);
+            }
+            return NoContent();
         }
 
-        // PUT api/<CategoryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // DELETE api/<CategoryController>/
+        [HttpDelete("{categoryID}")]
+        public ActionResult DeleteCategory(int categoryID)
         {
-        }
-
-        // DELETE api/<CategoryController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            _bl.DeleteCategory(categoryID);
+            return Ok();          
         }
     }
 }

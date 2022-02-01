@@ -9,113 +9,133 @@ public class P2BL : IBL
         _dl = repo;
     }
 
-    public void AddCategory(Category catToAdd)
-    {
-        throw new NotImplementedException();
+    public void AddLike(Like like){
+        _dl.AddLike(like);
     }
 
-    public void AddDrawing(Drawing drawingToAdd)
-    {
-        throw new NotImplementedException();
+    public Like GetLikeByID(int likeID){
+        return _dl.GetLikeByID(likeID);
     }
 
-    public void AddWallpost(WallPost wallpostToAdd)
-    {
-        throw new NotImplementedException();
+    public List<Like> GetLikesByPlayerID(int playerID){
+        return _dl.GetLikesByPlayerID(playerID);
     }
 
-    public void DeleteCategory(Category catToDelete)
-    {
-        throw new NotImplementedException();
+    public List<Like> GetLikesByDrawingID(int drawingID){
+        return _dl.GetLikesByDrawingID(drawingID);
     }
 
-    public void DeleteDrawingByID(int DrawingID)
-    {
-        throw new NotImplementedException();
+    public List<Like> GetLikesByCommentID(int commentID){
+        return _dl.GetLikesByCommentID(commentID);
     }
 
-    public void DeleteWallpostByID(int WallpostID)
-    {
-        throw new NotImplementedException();
+    public void DeleteLikeByID (int likeID){
+        _dl.DeleteLikeByID(likeID);
     }
 
-    public List<Category> GetAllCategories()
-    {
-        throw new NotImplementedException();
+    //Comments
+    public void AddComment(Comment commentToAdd){
+        _dl.AddComment(commentToAdd);
     }
 
-    public List<Drawing> GetAllDrawingsByUserID(int UserID)
-    {
-        throw new NotImplementedException();
+    public Comment GetCommentByID(int commentID){
+        return _dl.GetCommentByID(commentID);
     }
 
-    public List<Drawing> GetAllDrawingsByWallPostID(int WallPostID)
-    {
-        throw new NotImplementedException();
+    public List<Comment> GetCommentsByDrawingID(int drawingID){
+        return _dl.GetCommentsByDrawingID(drawingID);
+    }
+
+    public Comment EditCommentByID(int commentID, string message){
+        return _dl.EditCommentByID(commentID, message);
+    }
+
+    public void DeleteCommentByID(int commentID){
+        _dl.DeleteCommentByID(commentID);
+    }
+
+    //Categories
+    public List<Category> GetAllCategories(){
+        return _dl.GetAllCategories();
+    }
+
+    public Category GetCategoryByID(int categoryID){
+        return _dl.GetCategoryByID(categoryID);
+    }
+    public void AddCategory(Category catToAdd){
+        _dl.AddCategory(catToAdd);
+    }
+
+    public void DeleteCategory(int categoryID){
+        _dl.DeleteCategory(categoryID);
+    }
+
+    public List<Category> SearchCategories(string searchTerm){
+        return _dl.SearchCategories(searchTerm);
+    }
+
+    //Drawings
+    public void AddDrawing(Drawing drawingToAdd){
+        _dl.AddDrawing(drawingToAdd);
+    }
+
+    public Drawing GetDrawingByID(int drawingID){
+        return _dl.GetDrawingByID(drawingID);
+    }
+
+    public List<Drawing> GetAllDrawingsByPlayerID(int playerID){
+        return _dl.GetAllDrawingsByPlayerID(playerID);
+    }
+  
+    public List<Drawing> GetAllDrawingsByWallPostID(int wallpostID){
+        return _dl.GetAllDrawingsByWallPostID(wallpostID);
+    }
+
+    public void DeleteDrawingByID(int drawingID){
+        _dl.DeleteDrawingByID(drawingID);
+    }
+
+    //Wall Posts
+    public void AddWallpost(WallPost wallpostToAdd){
+        _dl.AddWallpost(wallpostToAdd);
+    }
+
+    public WallPost GetWallpostByID(int wallpostID){
+        return _dl.GetWallpostByID(wallpostID);
+    }
+
+    public List<WallPost> GetAllWallpostByCategoryID(int CategoryID){
+        return _dl.GetAllWallpostByCategoryID(CategoryID);
+    }
+
+    public WallPost GetWallpostByKeyword(string Key){
+        return _dl.GetWallpostByKeyword(Key);
+    }
+    public void DeleteWallpostByID(int wallpostID){
+        _dl .DeleteWallpostByID(wallpostID);
+    }
+
+    //Players
+    public void AddNewPlayerAccount(Player playerToAdd){
+        _dl.AddNewPlayerAccount(playerToAdd);
+    }
+
+    public Player? GetPlayerByIDWithDrawings(int playerID){
+        return _dl.GetPlayerByIDWithDrawings(playerID);
     }
 
 
-    public List<WallPost> GetAllWallpostByCategoryID(int CategoryID)
-    {
-        throw new NotImplementedException();
+    public void DeletePlayerByID(int playerID){
+        _dl.DeletePlayerByID(playerID);
     }
 
-    public Category GetCategoryById(int ID)
-    {
-        throw new NotImplementedException();
-
+    public List<Player> GetAllPlayersWithDrawings(){
+        return _dl.GetAllPlayersWithDrawings();
     }
 
-    public WallPost GetWallpostByID(int WallpostID)
-    {
-        throw new NotImplementedException();
-    }
 
-    public WallPost GetWallpostByKeyword(string Key)
-    {
-        throw new NotImplementedException();
+    public Player LoginPlayer(string username, string password){
+        return _dl.LoginPlayer(username, password);
     }
-
-    public List<Category> SearchCategories(string searchTerm)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Drawing GetDrawingByID(int DrawingID)
-    {
-        throw new NotImplementedException();
-    }
-    public Player AddNewPlayerAccount(Player playerToAdd)
-    {
-        return _dl.AddNewPlayerAccount(playerToAdd);
-    }
-    public Player GetPlayerByID(int PlayerID)
-    {
-        return _dl.GetPlayerByID(PlayerID);
-    }
-
-    public async Task<Player?> GetPlayerByIDWithDrawingsAsync(int PlayerID)
-    {
-        return await _dl.GetPlayerByIDWithDrawingsAsync(PlayerID);
-    }
-
-    public void DeletePlayerByID(int PlayerID)
-    {
-        _dl.DeletePlayerByID(PlayerID);
-    }
-
-    public List<Player> GetAllPlayers()
-    {
-        return _dl.GetAllPlayers();
-    }
-
-    public async Task<List<Player>> GetAllPlayersWithDrawingsAsync()
-    {
-        return await _dl.GetAllPlayersWithDrawingsAsync();
-    }
-
-    public Player LoginPlayer(Player player)
-    {
-        return _dl.LoginPlayer(player);
-    }
+     
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DL;
 using BL;
 using Models;
 
@@ -19,9 +18,9 @@ namespace WebAPI.Controllers
         
         // GET: api/<WallpostController>
         [HttpGet("{id}")]
-        public ActionResult<WallPost> GetWallpostByID(int WallpostID)
+        public ActionResult<WallPost> GetWallpostByID(int id)
         {
-            WallPost wallpost = _bl.GetWallpostByID(WallpostID);
+            WallPost wallpost = _bl.GetWallpostByID(id);
             if (wallpost != null)
             {
                 return Ok(wallpost);
@@ -30,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         // GET api/<WallpostController>
-        [HttpGet("{categoryid}")]
+        [HttpGet("category/{CategoryID}")]
         public ActionResult<List<WallPost>> GetAllWallpostByCategoryID(int CategoryID)
         {
             List<WallPost> allWallposts = _bl.GetAllWallpostByCategoryID(CategoryID);
@@ -42,10 +41,10 @@ namespace WebAPI.Controllers
         }
 
         // GET api/<WallpostController>
-        [HttpGet("{keyword}")]
-        public ActionResult<List<WallPost>> GetWallpostByKeyword(string Key)
+        [HttpGet("search/{Keyword}")]
+        public ActionResult<WallPost> GetWallpostByKeyword(string Keyword)
         {
-            WallPost wallpost = _bl.GetWallpostByKeyword(Key);
+            WallPost wallpost = _bl.GetWallpostByKeyword(Keyword);
             if (wallpost != null)
             {
                 return Ok(wallpost);
@@ -58,10 +57,10 @@ namespace WebAPI.Controllers
         public ActionResult PostWallpost([FromBody] WallPost wallpostToAdd)
         {
             _bl.AddWallpost(wallpostToAdd);
-            return Ok(wallpostToAdd);
+            return Ok();
         }
 
-        // DELETE api/<WallpostController>/5
+        // DELETE api/<WallpostController>
         [HttpDelete("{id}")]
         public ActionResult Delete(int WallpostID)
         {

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DL;
+using BL;
+using Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +11,69 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CommentController : ControllerBase
     {
-        // GET: api/<CommentController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private IBL _bl;
+
+        public CommentController(IBL bl)
         {
-            return new string[] { "value1", "value2" };
+            _bl = bl;
+        }
+        // GET: api/<CommentController>
+        [HttpGet("commentID")]
+        public ActionResult<Comment> GetCommentByID(int commentID)
+        {
+            Comment comment = _bl.GetCommentByID(commentID);
+            if(comment != null)
+            {
+                return Ok(comment);
+            }
+            return NoContent();
         }
 
-        // GET api/<CommentController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<CommentController>
+        [HttpGet("drawing/{drawingID}")]
+        public ActionResult<List<Comment>> GetCommentByDrawingID(int drawingID)
         {
-            return "value";
+            List<Comment> selectedComments = _bl.GetCommentsByDrawingID(drawingID);
+            if (selectedComments != null)
+            {
+                return Ok(selectedComments);
+            }
+            return NoContent();
         }
 
         // POST api/<CommentController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult PostComment([FromBody] Comment comToAdd)
         {
+            _bl.AddComment(comToAdd);
+            return Ok();
         }
 
-        // PUT api/<CommentController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<CommentController>
+        [HttpPut("comment/{commentID}")]
+        public ActionResult<Comment> EditCommentByID(int commentID, string message)
         {
+            Comment selectedComment = _bl.GetCommentByID(commentID);
+            if(selectedComment != null)
+            {
+                _bl.EditCommentByID(commentID, message);
+                selectedComment.Message = message;
+                return Ok(selectedComment);
+            }
+            return NoContent();
         }
 
-        // DELETE api/<CommentController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<CommentController>
+        [HttpDelete("{commentID}")]
+        public ActionResult DeleteComment(int commentID)
         {
+            Comment selectedComment = _bl.GetCommentByID(commentID);
+            if (selectedComment != null)
+            {
+                _bl.DeleteCommentByID(commentID);
+                return Ok();
+            }
+            return NoContent();
         }
     }
 }

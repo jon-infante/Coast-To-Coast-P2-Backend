@@ -1,5 +1,4 @@
-﻿using DL;
-using BL;
+﻿using BL;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +16,10 @@ namespace WebAPI.Controllers
             _bl = bl;
         }
         // GET: api/<DrawingController>
-        [HttpGet("{id}")]
-        public ActionResult<Drawing> GetDrawingByID(int DrawingID)
+        [HttpGet("{drawingID}")]
+        public ActionResult<Drawing> GetDrawingByID(int drawingID)
         {
-            Drawing drawing = _bl.GetDrawingByID(DrawingID);
+            Drawing drawing = _bl.GetDrawingByID(drawingID);
 
             if (drawing != null)
             {
@@ -32,10 +31,10 @@ namespace WebAPI.Controllers
         }
 
         // GET: api/<DrawingController>
-        [HttpGet("{playerid}")]
-        public ActionResult<List<Drawing>> GetAllDrawingsByUserID(int PlayerID)
+        [HttpGet("player/{playerID}")]
+        public ActionResult<List<Drawing>> GetAllDrawingsByPlayerID(int playerID)
         {
-            List<Drawing> allDrawings = _bl.GetAllDrawingsByUserID(PlayerID);
+            List<Drawing> allDrawings = _bl.GetAllDrawingsByPlayerID(playerID);
 
             if (allDrawings != null)
             {
@@ -46,10 +45,10 @@ namespace WebAPI.Controllers
 
         }
         // GET: api/<DrawingController>
-        [HttpGet("{wallpostid}")]
-        public ActionResult<List<Drawing>> GetAllDrawingsByWallPostID(int WallPostID)
+        [HttpGet("wallpost/{wallpostID}")]
+        public ActionResult<List<Drawing>> GetAllDrawingsByWallPostID(int wallpostID)
         {
-            List<Drawing> allDrawings = _bl.GetAllDrawingsByWallPostID(WallPostID);
+            List<Drawing> allDrawings = _bl.GetAllDrawingsByWallPostID(wallpostID);
 
             if (allDrawings != null)
             {
@@ -65,15 +64,15 @@ namespace WebAPI.Controllers
         public ActionResult PostDrawing([FromBody] Drawing drawingToAdd)
         {
             _bl.AddDrawing(drawingToAdd);
-            return Ok(drawingToAdd);
+            return Ok();
         }
 
 
         // DELETE api/<DrawingController>
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int DrawingID)
+        [HttpDelete("{drawingID}")]
+        public ActionResult Delete(int drawingID)
         {
-            _bl.DeleteDrawingByID(DrawingID);
+            _bl.DeleteDrawingByID(drawingID);
             return Ok();
         }
     }

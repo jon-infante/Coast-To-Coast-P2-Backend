@@ -12,91 +12,101 @@ public class EFRepo : IRepo
         _context = context;
     }
 
-
-    public List<Like> GetLikeByUserID(Like lk)
+    //Likes
+    public void AddLike(Like like)
     {
-        List<Like> likes = new List<Like> ();
-        likes = _context.Likes.where(l => l.UserID = lk.UserID).ToList();
-        return likes;
-    }
-
-    public List<Like> GetLikeByDrawingID(Like lk)
-    {
-        List<Like> likes = new List<Like> ();
-        likes = _context.Likes.where(l => l.DrawingID = lk.DrawingID).ToList();
-        return likes;
-    }
-
-    public List<Like> GetLikeByCommentID(Like lk)
-    {
-        List<Like> likes = new List<Like> ();
-        likes = _context.Likes.where(l => l.CommentID = lk.CommentID).ToList();
-        return likes;
-    }
-
-    public Like NewLike (Like lk)
-    {
-        Like like = new Like ();
-        like = _context.Likes.Find.where(like => Likes.UserID = lk.UserID && Likes.DrawingID = lk.DrawingID && like.CommnetID = lk.CommentID);
-        if (like == null)
-        {
-            like = _context.Likes.Add(lk);
-        }
-        return like;
-    }
-
-    public void RemoveLike (Like lk)
-    {
-        Like like = new Like ();
-        like = _context.Likes.Find.where(like => Likes.UserID = lk.UserID && Likes.DrawingID = lk.DrawingID && like.CommnetID = lk.CommentID);
-        if (like != null)
-        {
-            like = _context.Likes.Remove(lk);
-        }
-    }
-
-    public List<Comment> GetCommentByDrawingID(Drawing draw)
-    {
-        List<Comment> comments = new List<Comment>();
-        comments = _context.Comments.Find.where(c => c.DrawingID = draw.ID);
-        return comments;
-    }
-}
-
-    public Player AddNewPlayerAccount(Player playerToAdd)
-    {
-        _context.Add(playerToAdd);
+        _context.Add(like);
         _context.SaveChanges();
-
-        return playerToAdd;
+        _context.ChangeTracker.Clear();
     }
-    
+    public Like GetLikeByID(int likeID)
+    {
+        return _context.Likes.FirstOrDefault(r => r.ID == likeID);
+    }
+    public List<Like> GetLikesByPlayerID(int playerID)
+    {
+        return _context.Likes.Where(l => l.PlayerID == playerID).ToList();
+    }
+
+    public List<Like> GetLikesByDrawingID(int drawingID)
+    {
+        return _context.Likes.Where(l => l.DrawingID == drawingID).ToList();
+        
+    }
+
+    public List<Like> GetLikesByCommentID(int commentID)
+    {
+        return _context.Likes.Where(l => l.CommentID == commentID).ToList();
+    }
+
+    public void DeleteLikeByID (int likeID)
+    {
+        Like like = GetLikeByID(likeID);
+        _context.Remove(like);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
+
+    //Comments
+    public void AddComment(Comment commentToAdd){
+        _context.Add(commentToAdd);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
+    public Comment GetCommentByID(int commentID){
+        return _context.Comments.FirstOrDefault(r => r.ID == commentID);
+    }
+    public List<Comment> GetCommentsByDrawingID(int drawingID)
+    {
+        return  _context.Comments.Include(c => c.Likes).AsNoTracking().Where(c => c.DrawingID == drawingID).ToList();
+    }
+
+    public Comment EditCommentByID(int commentID, string message){
+        Comment comment = GetCommentByID(commentID);
+        comment.Message = message;
+        _context.Update(comment);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+        return comment;
+    }
+
+    public void DeleteCommentByID(int commentID){
+        Comment comment = GetCommentByID(commentID);
+        _context.Remove(comment);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
+
+
+    //Categories
     public List<Category> GetAllCategories()
     {
         return _context.Categories.Include(r => r.WallPosts).Select(r => r).ToList();
     }
-    public Category GetCategoryById(int ID)
+    public Category GetCategoryByID(int categoryID)
     {
-        return _context.Categories.Include(r => r.WallPosts).FirstOrDefault(r => r.ID == ID);
+        return _context.Categories.Include(r => r.WallPosts).FirstOrDefault(r => r.ID == categoryID);
     }
     public void AddCategory(Category catToAdd)
     {
         _context.Add(catToAdd);
         _context.SaveChanges();
         _context.ChangeTracker.Clear();
+
     }
-    public void DeleteCategory(Category catToDelete)
+    public void DeleteCategory(int categoryID)
     {
-        _context.Remove(catToDelete);
+        Category category = GetCategoryByID(categoryID);
+        _context.Remove(category);
         _context.SaveChanges();
         _context.ChangeTracker.Clear();
     }
 
     public List<Category> SearchCategories(string searchTerm)
     {
-        return _context.Categories.Where(x => x.CategoryName.ToLower().Contains(searchTerm.ToLower())).ToList();
+        return _context.Categories.Include(c => c.WallPosts).Where(x => x.CategoryName.ToLower().Contains(searchTerm.ToLower())).ToList();
     }
-     
+    //Drawings
     public void AddDrawing(Drawing drawingToAdd){
         _context.Add(drawingToAdd);
         _context.SaveChanges();
@@ -109,13 +119,12 @@ public class EFRepo : IRepo
         .FirstOrDefault(r => r.ID == DrawingID);
     }
        
-    public List<Drawing> GetAllDrawingsByUserID(int PlayerID){
+    public List<Drawing> GetAllDrawingsByPlayerID(int playerID){
         return _context.Drawings
         .Include(r => r.Likes)
         .AsNoTracking()
-        .Where(r => r.PlayerID == PlayerID)
+        .Where(r => r.PlayerID == playerID)
         .ToList();
-        // return new List<Drawing>();
     }   
     public List<Drawing> GetAllDrawingsByWallPostID(int WallPostID){
         return _context.Drawings
@@ -123,7 +132,6 @@ public class EFRepo : IRepo
         .AsNoTracking()
         .Where(r => r.WallPostID == WallPostID)
         .ToList();
-        // return new List<Drawing>();
     }
 
     public void DeleteDrawingByID(int DrawingID){
@@ -132,7 +140,7 @@ public class EFRepo : IRepo
         _context.SaveChanges();
         _context.ChangeTracker.Clear();
     }
-
+    //Wall Posts
     public void AddWallpost(WallPost wallpostToAdd) {
         _context.Add(wallpostToAdd);
         _context.SaveChanges();
@@ -157,38 +165,34 @@ public class EFRepo : IRepo
         _context.SaveChanges();
         _context.ChangeTracker.Clear();
     }
-
-    public Player GetPlayerByID(int playerID)
+    //Players
+    public void AddNewPlayerAccount(Player playerToAdd)
     {
-        return _context.Players.AsNoTracking().FirstOrDefault(r => r.ID ==playerID);
+        _context.Add(playerToAdd);
+        _context.SaveChanges();
+    }
+    public Player? GetPlayerByIDWithDrawings(int playerID)
+    {
+        return _context.Players.Include(r => r.Drawings).FirstOrDefault(r => r.ID == playerID);
     }
 
-    public async Task<Player?> GetPlayerByIDWithDrawingsAsync(int playerID)
+    public void DeletePlayerByID(int playerID)
     {
-        return _context.Players.Include("Drawings").FirstOrDefault(r => r.ID == playerID);
-    }
-
-    public void DeletePlayerByID(int PlayerID)
-    {
-        Player player = GetPlayerByID(PlayerID);
+        Player player = GetPlayerByIDWithDrawings(playerID);
         _context.Remove(player);
         _context.SaveChanges();
         _context.ChangeTracker.Clear();
     }
 
-    public List<Player> GetAllPlayers()
+    public List<Player> GetAllPlayersWithDrawings()
     {
-        return _context.Players.Select(r => r).ToList();
+        return _context.Players.Include(r => r.Drawings).AsNoTracking().Select(r => r).ToList();
     }
 
-    public Task<List<Player>> GetAllPlayersWithDrawingsAsync()
+    public Player LoginPlayer(string username, string password)
     {
-        return _context.Players.Include(r => r.Drawings).AsNoTracking().Select(r => r).ToListAsync(); ;
+        return _context.Players.FirstOrDefault(r => r.Username == username && r.Password == password);
     }
 
-    public Player LoginPlayer(Player player)
-    {
-        return _context.Players.FirstOrDefault(r => r.Username == player.Username && r.Password == player.Password);
-    }
-} 
+}
 

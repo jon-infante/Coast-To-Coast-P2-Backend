@@ -9,15 +9,16 @@ public class Drawing
 
         public int WallPostID { get; set; }
 
-        public string Category { get; set; }
+        public string Keyword { get; set; }
 
         public string BucketImage { get; set; }
 
         public bool Guess { get; set; }
 
+        public decimal GoogleScore { get; set; }
+
         public string GoogleResponse { get; set; }
 
-        //each int is a user ID
         public List<Like> Likes { get; set; }
 
         public string Date { get; set; }
