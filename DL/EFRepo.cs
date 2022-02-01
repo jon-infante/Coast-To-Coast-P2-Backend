@@ -54,7 +54,7 @@ public class EFRepo : IRepo
         _context.ChangeTracker.Clear();
     }
     public Comment GetCommentByID(int commentID){
-        return _context.Comments.FirstOrDefault(r => r.ID == commentID);
+        return _context.Comments.Include(c => c.Likes).FirstOrDefault(r => r.ID == commentID);
     }
     public List<Comment> GetCommentsByDrawingID(int drawingID)
     {

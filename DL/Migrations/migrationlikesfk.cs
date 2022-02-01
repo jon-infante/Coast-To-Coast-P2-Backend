@@ -212,13 +212,13 @@ namespace DL.Migrations
                 {
                     b.HasOne("Models.Comment", null)
                         .WithMany("Likes")
-                        .HasForeignKey("CommentID")
+                        // .HasForeignKey("CommentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Models.Drawing", null)
                         .WithMany("Likes")
-                        .HasForeignKey("DrawingID")
+                        // .HasForeignKey("DrawingID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
