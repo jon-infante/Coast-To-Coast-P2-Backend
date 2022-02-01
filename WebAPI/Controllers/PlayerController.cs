@@ -18,63 +18,23 @@ namespace WebAPI.Controllers
             _bl = bl;
         }
         // GET: api/<UserController>
-        [HttpGet("GetAllPlayers")]
-        public List<Player> Get()
+        [HttpGet]
+        public ActionResult<List<Player>> GetAllPlayers()
         {
-            List<Player> allPlayers = _bl.GetAllPlayers();
-            return allPlayers;
+            List<Player> allPlayers = _bl.GetAllPlayersWithDrawings();
+            if (allPlayers.Count != 0)
+            {
+                return Ok(allPlayers);
+            }
+            return NoContent();
         }
 
-        // GET: api/<UserController>
-        [HttpGet("GetAllPlayersWithDrawings")]
-        public async Task<List<Player>> GetAllPlayersWithDrawings()
-        {
-            List<Player> allPlayers = await _bl.GetAllPlayersWithDrawingsAsync();
-            return allPlayers;
-        }
 
-        // GET api/<PlayerController>/5
-        [HttpGet("GetPlayerByID/{id}")]
-        public ActionResult<Player> Get(int PlayerID)
+        // GET api/<PlayerController>
+        [HttpGet("{id}")]
+        public ActionResult<Player> GetPlayerByID(int id)
         {
-            Player foundPlayer = _bl.GetPlayerByID(PlayerID);
-            if(foundPlayer != null)
-            {
-                return Ok(foundPlayer);
-            }
-            else
-            {
-                return NoContent();
-            }
-        }
-
-        [HttpGet("Login")]
-        public ActionResult Get(string username, string password)
-        {
-            Player currentPlayer = _bl.LoginPlayer(new Player { Username = username, Password = password });
-            if (currentPlayer.ID <= 0)
-            {
-                return BadRequest("User does not exist");
-            }
-            else
-            {
-                if (currentPlayer.Password == password)
-                {
-                    Log.Information("User with username: " + existing.UserName + " logged in.");
-                    return Ok("You've successfully logged in");
-                }
-                else
-                {
-                    return BadRequest("Incorrect password");
-                }
-            }
-        }
-
-        // GET api/<PlayerController>/5
-        [HttpGet("GetPlayerByIDWithDrawings/{id}")]
-        public async Task<ActionResult<Player>> GetPlayerByIDWithDrawings(int PlayerID)
-        {
-            Player? foundPlayer = await _bl.GetPlayerByIDWithDrawingsAsync(PlayerID);
+            Player foundPlayer = _bl.GetPlayerByIDWithDrawings(id);
             if (foundPlayer != null)
             {
                 return Ok(foundPlayer);
@@ -84,26 +44,42 @@ namespace WebAPI.Controllers
                 return NoContent();
             }
         }
+        // GET api/<PlayerController>
+        [HttpGet("login/{username}")]
+        public ActionResult GetLoginPlayer(string username, string password)
+        {
+            Player currentPlayer = _bl.LoginPlayer(username, password);
+            if (currentPlayer.ID <= 0)
+            {
+                return BadRequest("User does not exist");
+            }
+            else
+            {
+                if (currentPlayer.Password == password)
+                {
+                    return Ok("You've successfully logged in");
+                }
+                else
+                {
+                    return BadRequest("Incorrect password");
+                }
+            }
+        }
 
         // POST api/<PlayerController>
-        [HttpPost("CreateNewPlayer")]
-        public ActionResult Post([FromBody] Player playerToAdd)
+        [HttpPost]
+        public ActionResult PostPlayer([FromBody] Player playerToAdd)
         {
             _bl.AddNewPlayerAccount(playerToAdd);
             return Created("New Player Successfully Added", playerToAdd);
         }
 
-        // PUT api/<PlayerController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<PlayerController>/5
+        // DELETE api/<PlayerController>
         [HttpDelete("{id}")]
-        public ActionResult Delete(int PlayerID)
+        public ActionResult Delete(int id)
         {
-            _bl.DeletePlayerByID(PlayerID);
+            _bl.DeletePlayerByID(id);
             return Ok();
         }
     }

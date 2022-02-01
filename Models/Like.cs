@@ -6,7 +6,7 @@ public class Like{
 
     public int ID { get; set; }
 
-    public int UserID { get; set; }
+    public int PlayerID { get; set; }
 
     public int DrawingID { get; set; }
 
