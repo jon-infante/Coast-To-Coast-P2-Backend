@@ -50,6 +50,7 @@ public interface IRepo
     void DeleteDrawingByID(int DrawingID);
 
     //Wall Posts
+    List<WallPost> GetAllWallPosts();
     void AddWallpost(WallPost wallpostToAdd);
 
     WallPost GetWallpostByID(int WallpostID);

@@ -5,6 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowAllHeadersPolicy",
+        builder =>
+        {
+            builder.WithOrigins("*")
+                   .AllowAnyHeader();
+        });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -28,6 +38,8 @@ app.UseSwaggerUI(c =>
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseCors("MyAllowAllHeadersPolicy");
 
 app.UseAuthorization();
 

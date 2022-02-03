@@ -97,6 +97,9 @@ public class P2BL : IBL
     }
 
     //Wall Posts
+    public List<WallPost> GetAllWallPosts(){
+        return _dl.GetAllWallPosts();
+    }
     public void AddWallpost(WallPost wallpostToAdd){
         _dl.AddWallpost(wallpostToAdd);
     }

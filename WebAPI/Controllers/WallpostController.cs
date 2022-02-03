@@ -15,7 +15,19 @@ namespace WebAPI.Controllers
         {
             _bl = bl;
         }
-        
+
+        // GET: api/<WallpostController>
+        [HttpGet]
+        public ActionResult<List<WallPost>> GetAllWallPosts()
+        {
+            List<WallPost> allWallPosts = _bl.GetAllWallPosts();
+            if (allWallPosts.Count != 0)
+            {
+                return Ok(allWallPosts);
+            }
+            return NoContent();
+        }
+
         // GET: api/<WallpostController>
         [HttpGet("{id}")]
         public ActionResult<WallPost> GetWallpostByID(int id)
