@@ -48,6 +48,7 @@ public interface IBL
     void DeleteDrawingByID(int drawingID);
 
     //Wall Posts
+    List<WallPost> GetAllWallPosts();
     void AddWallpost(WallPost wallpostToAdd);
 
     WallPost GetWallpostByID(int wallpostID);
