@@ -79,6 +79,10 @@ public class P2BL : IBL
     public void AddDrawing(Drawing drawingToAdd){
         _dl.AddDrawing(drawingToAdd);
     }
+    public void UpdateDrawing(Drawing drawingToUpdate){
+        _dl.UpdateDrawing(drawingToUpdate);
+    }
+
 
     public Drawing GetDrawingByID(int drawingID){
         return _dl.GetDrawingByID(drawingID);

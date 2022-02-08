@@ -112,6 +112,12 @@ public class EFRepo : IRepo
         _context.ChangeTracker.Clear();
     }
 
+    public void UpdateDrawing(Drawing drawingToUpdate){
+        _context.Update(drawingToUpdate);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
+
     public Drawing GetDrawingByID(int DrawingID){
         return  _context.Drawings
         .Include(r => r.Likes)

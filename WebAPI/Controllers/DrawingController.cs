@@ -61,10 +61,19 @@ namespace WebAPI.Controllers
 
         // POST api/<DrawingController>
         [HttpPost]
-        public ActionResult PostDrawing([FromBody] Drawing drawingToAdd)
-        {
+        public ActionResult<Drawing> PostDrawing([FromBody] Drawing drawingToAdd)
+        {   
+
             _bl.AddDrawing(drawingToAdd);
-            return Ok();
+            return Ok(drawingToAdd);
+        }
+        // PUT api/<DrawingController>
+        [HttpPut]
+        public ActionResult<Drawing> UpdateDrawing([FromBody] Drawing drawingToUpdate)
+        {
+        
+            _bl.UpdateDrawing(drawingToUpdate);
+            return Ok(drawingToUpdate);
         }
 
 
