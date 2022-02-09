@@ -112,10 +112,22 @@ public class EFRepo : IRepo
         _context.ChangeTracker.Clear();
     }
 
+    public void UpdateDrawing(Drawing drawingToUpdate){
+        _context.Update(drawingToUpdate);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
+
     public Drawing GetDrawingByID(int DrawingID){
         return  _context.Drawings
         .Include(r => r.Likes)
         .FirstOrDefault(r => r.ID == DrawingID);
+    }
+    public List<Drawing> GetAllDrawings(){
+        return _context.Drawings
+        .Include(r => r.Likes)
+        .AsNoTracking()
+        .ToList();
     }
        
     public List<Drawing> GetAllDrawingsByPlayerID(int playerID){

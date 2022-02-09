@@ -22,5 +22,7 @@ public class Drawing
         public List<Like> Likes { get; set; }
 
         public string Date { get; set; }
+        
+        public bool isLiked { get; set; }
 
 }

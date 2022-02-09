@@ -41,7 +41,11 @@ public interface IRepo
     //Drawings
     void AddDrawing(Drawing drawingToAdd);
 
+    void UpdateDrawing(Drawing drawingToUpdate);
+
     Drawing GetDrawingByID(int DrawingID);
+
+    List<Drawing> GetAllDrawings();
 
     List<Drawing> GetAllDrawingsByPlayerID(int playerID);
   

@@ -7,11 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("MyAllowAllHeadersPolicy",
+    options.AddDefaultPolicy(
         builder =>
         {
-            builder.WithOrigins("*")
-                   .AllowAnyHeader();
+            builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
         });
 });
 
@@ -39,7 +38,7 @@ app.UseSwaggerUI(c =>
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseCors("MyAllowAllHeadersPolicy");
+app.UseCors();
 
 app.UseAuthorization();
 
