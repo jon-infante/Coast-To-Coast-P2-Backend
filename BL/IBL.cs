@@ -39,7 +39,11 @@ public interface IBL
     //Drawings
     void AddDrawing(Drawing drawingToAdd);
 
+    void UpdateDrawing(Drawing drawingToUpdate);
+
     Drawing GetDrawingByID(int drawingID);
+
+    List<Drawing> GetAllDrawings();
 
     List<Drawing> GetAllDrawingsByPlayerID(int playerID);
   
@@ -48,6 +52,7 @@ public interface IBL
     void DeleteDrawingByID(int drawingID);
 
     //Wall Posts
+    List<WallPost> GetAllWallPosts();
     void AddWallpost(WallPost wallpostToAdd);
 
     WallPost GetWallpostByID(int wallpostID);

@@ -79,9 +79,17 @@ public class P2BL : IBL
     public void AddDrawing(Drawing drawingToAdd){
         _dl.AddDrawing(drawingToAdd);
     }
+    public void UpdateDrawing(Drawing drawingToUpdate){
+        _dl.UpdateDrawing(drawingToUpdate);
+    }
+
 
     public Drawing GetDrawingByID(int drawingID){
         return _dl.GetDrawingByID(drawingID);
+    }
+
+    public List<Drawing> GetAllDrawings(){
+        return _dl.GetAllDrawings();
     }
 
     public List<Drawing> GetAllDrawingsByPlayerID(int playerID){
@@ -97,6 +105,9 @@ public class P2BL : IBL
     }
 
     //Wall Posts
+    public List<WallPost> GetAllWallPosts(){
+        return _dl.GetAllWallPosts();
+    }
     public void AddWallpost(WallPost wallpostToAdd){
         _dl.AddWallpost(wallpostToAdd);
     }
