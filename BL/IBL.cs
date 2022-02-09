@@ -66,7 +66,9 @@ public interface IBL
 
     List<Player> GetAllPlayersWithDrawings();
 
-    Player LoginPlayer(string username, string password);
+    /*    Player LoginPlayer(string username, string password);*/
+
+    Player LoginPlayer(string username);
 
     bool IsDuplicate(Player player);
 }
