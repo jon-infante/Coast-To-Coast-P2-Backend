@@ -45,6 +45,35 @@ namespace WebAPI.Controllers
             }
         }
 
+<<<<<<< HEAD
+
+
+        //possible fix
+       [HttpGet("login/{username}")]
+        public Player GetLoginPlayer(string username)
+        {
+            Player currentPlayer = _bl.LoginPlayer(username);
+            if (currentPlayer == null)
+            {
+                Console.WriteLine("player doesn't exist, adding new player");
+                Player playerToAdd = new Player();
+                playerToAdd.Username = username;
+                playerToAdd.Password = "";
+                _bl.AddNewPlayerAccount(playerToAdd);
+                return playerToAdd;
+                
+            }
+            else
+            {
+                return currentPlayer;
+            }
+
+
+
+        }
+
+/*        //possible fix
+=======
         // GET api/<PlayerController>
         [HttpGet("user/{username}")]
         public ActionResult<Player> GetPlayerByID(string username)
@@ -85,6 +114,7 @@ namespace WebAPI.Controllers
                 }*/
 
         //possible fix
+>>>>>>> 59702a3a4ca9be85527de3f23b11e97b10fa4ac1
         [HttpGet("login/{username}")]
         public ActionResult GetLoginPlayer(string username)
         {
@@ -105,7 +135,7 @@ namespace WebAPI.Controllers
 
 
 
-        }
+        }*/
 
         // POST api/<PlayerController>
         [HttpPost]

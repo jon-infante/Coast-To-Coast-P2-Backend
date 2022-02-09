@@ -222,7 +222,7 @@ public class EFRepo : IRepo
 
     public Player LoginPlayer(string username)
     {
-        return _context.Players.FirstOrDefault(r => r.Username == username);
+        return _context.Players.Include(r => r.Drawings).FirstOrDefault(r => r.Username == username);
     }
 
     public bool IsDuplicate(Player player)
