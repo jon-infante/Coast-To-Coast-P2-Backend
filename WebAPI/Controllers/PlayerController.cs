@@ -45,30 +45,34 @@ namespace WebAPI.Controllers
             }
         }
 
-        // GET api/<PlayerController>
-        /*        [HttpGet("login/{username}")]
-                public ActionResult GetLoginPlayer(string username, string password)
-                {
-                    Player currentPlayer = _bl.LoginPlayer(username, password);
-                    if (currentPlayer.ID <= 0)
-                    {
-                        return BadRequest("User does not exist");
-                    }
-                    else
-                    {
-                        if (currentPlayer.Password == password)
-                        {
-                            return Ok("You've successfully logged in");
-                        }
-                        else
-                        {
-                            return BadRequest("Incorrect password");
-                        }
-                    }
-                }*/
+
 
         //possible fix
        [HttpGet("login/{username}")]
+        public Player GetLoginPlayer(string username)
+        {
+            Player currentPlayer = _bl.LoginPlayer(username);
+            if (currentPlayer == null)
+            {
+                Console.WriteLine("player doesn't exist, adding new player");
+                Player playerToAdd = new Player();
+                playerToAdd.Username = username;
+                playerToAdd.Password = "";
+                _bl.AddNewPlayerAccount(playerToAdd);
+                return playerToAdd;
+                
+            }
+            else
+            {
+                return currentPlayer;
+            }
+
+
+
+        }
+
+/*        //possible fix
+        [HttpGet("login/{username}")]
         public ActionResult GetLoginPlayer(string username)
         {
             Player currentPlayer = _bl.LoginPlayer(username);
@@ -88,7 +92,7 @@ namespace WebAPI.Controllers
 
 
 
-        }
+        }*/
 
         // POST api/<PlayerController>
         [HttpPost]
