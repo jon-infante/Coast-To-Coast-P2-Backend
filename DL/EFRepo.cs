@@ -123,6 +123,12 @@ public class EFRepo : IRepo
         .Include(r => r.Likes)
         .FirstOrDefault(r => r.ID == DrawingID);
     }
+    public List<Drawing> GetAllDrawings(){
+        return _context.Drawings
+        .Include(r => r.Likes)
+        .AsNoTracking()
+        .ToList();
+    }
        
     public List<Drawing> GetAllDrawingsByPlayerID(int playerID){
         return _context.Drawings

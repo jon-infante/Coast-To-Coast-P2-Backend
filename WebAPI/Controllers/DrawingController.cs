@@ -29,6 +29,19 @@ namespace WebAPI.Controllers
             return NoContent();
                 
         }
+        // GET: api/<DrawingController>
+        [HttpGet]
+        public ActionResult<List<Drawing>> GetAllDrawings()
+        {
+            List<Drawing> allDrawings = _bl.GetAllDrawings();
+
+            if (allDrawings != null)
+            {
+                return Ok(allDrawings);
+            }
+            //Not found
+            return NoContent();
+        }
 
         // GET: api/<DrawingController>
         [HttpGet("player/{playerID}")]

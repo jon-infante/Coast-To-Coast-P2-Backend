@@ -45,6 +45,8 @@ public interface IRepo
 
     Drawing GetDrawingByID(int DrawingID);
 
+    List<Drawing> GetAllDrawings();
+
     List<Drawing> GetAllDrawingsByPlayerID(int playerID);
   
     List<Drawing> GetAllDrawingsByWallPostID(int WallPostID);

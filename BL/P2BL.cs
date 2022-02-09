@@ -88,6 +88,10 @@ public class P2BL : IBL
         return _dl.GetDrawingByID(drawingID);
     }
 
+    public List<Drawing> GetAllDrawings(){
+        return _dl.GetAllDrawings();
+    }
+
     public List<Drawing> GetAllDrawingsByPlayerID(int playerID){
         return _dl.GetAllDrawingsByPlayerID(playerID);
     }

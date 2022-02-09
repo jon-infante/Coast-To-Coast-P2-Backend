@@ -38,9 +38,12 @@ public interface IBL
 
     //Drawings
     void AddDrawing(Drawing drawingToAdd);
+
     void UpdateDrawing(Drawing drawingToUpdate);
 
     Drawing GetDrawingByID(int drawingID);
+
+    List<Drawing> GetAllDrawings();
 
     List<Drawing> GetAllDrawingsByPlayerID(int playerID);
   
