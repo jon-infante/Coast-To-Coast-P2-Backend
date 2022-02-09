@@ -47,7 +47,7 @@ namespace WebAPI.Controllers
 
         // GET api/<PlayerController>
         [HttpGet("user/{username}")]
-        public ActionResult<Player> GetPlayerByID(string username)
+        public ActionResult<Player> GetPlayerByUsername(string username)
         {
             Player foundPlayer = _bl.GetPlayerByUsernameWithDrawings(username);
             if (foundPlayer != null)
