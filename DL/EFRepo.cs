@@ -197,6 +197,11 @@ public class EFRepo : IRepo
         return _context.Players.Include(r => r.Drawings).FirstOrDefault(r => r.ID == playerID);
     }
 
+    public Player? GetPlayerByUsernameWithDrawings(string username)
+    {
+        return _context.Players.Include(r => r.Drawings).FirstOrDefault(r => r.Username == username);
+    }
+
     public void DeletePlayerByID(int playerID)
     {
         Player player = GetPlayerByIDWithDrawings(playerID);

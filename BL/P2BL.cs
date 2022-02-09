@@ -140,6 +140,10 @@ public class P2BL : IBL
         return _dl.GetPlayerByIDWithDrawings(playerID);
     }
 
+    public Player? GetPlayerByUsernameWithDrawings(string username){
+        return _dl.GetPlayerByUsernameWithDrawings(username);
+    }
+
 
     public void DeletePlayerByID(int playerID){
         _dl.DeletePlayerByID(playerID);

@@ -46,6 +46,23 @@ namespace WebAPI.Controllers
         }
 
         // GET api/<PlayerController>
+        [HttpGet("user/{username}")]
+        public ActionResult<Player> GetPlayerByID(string username)
+        {
+            Player foundPlayer = _bl.GetPlayerByUsernameWithDrawings(username);
+            if (foundPlayer != null)
+            {
+                return Ok(foundPlayer);
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+
+
+        // GET api/<PlayerController>
         /*        [HttpGet("login/{username}")]
                 public ActionResult GetLoginPlayer(string username, string password)
                 {
@@ -68,7 +85,7 @@ namespace WebAPI.Controllers
                 }*/
 
         //possible fix
-       [HttpGet("login/{username}")]
+        [HttpGet("login/{username}")]
         public ActionResult GetLoginPlayer(string username)
         {
             Player currentPlayer = _bl.LoginPlayer(username);
@@ -77,7 +94,7 @@ namespace WebAPI.Controllers
                 Console.WriteLine("player doesn't exist, adding new player");
                 Player playerToAdd = new Player();
                 playerToAdd.Username = username;
-                playerToAdd.Password = "";
+                playerToAdd.Password = "empty";
                 _bl.AddNewPlayerAccount(playerToAdd);
                 return Created("Successfully added player: ", playerToAdd);
             }
