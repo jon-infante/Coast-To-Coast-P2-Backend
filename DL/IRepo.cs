@@ -71,6 +71,8 @@ public interface IRepo
 
     Player? GetPlayerByUsernameWithDrawings(string username);
 
+    void UpdatePlayer(Player playerToUpdate);
+
     void DeletePlayerByID(int playerID);
 
     List<Player> GetAllPlayersWithDrawings();
