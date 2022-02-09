@@ -67,6 +67,8 @@ public interface IBL
 
     Player? GetPlayerByIDWithDrawings(int playerID);
 
+    Player? GetPlayerByUsernameWithDrawings(string username);
+
     void DeletePlayerByID(int playerID);
 
     List<Player> GetAllPlayersWithDrawings();
