@@ -210,9 +210,14 @@ public class EFRepo : IRepo
         return _context.Players.Include(r => r.Drawings).AsNoTracking().Select(r => r).ToList();
     }
 
-    public Player LoginPlayer(string username, string password)
+    /*    public Player LoginPlayer(string username, string password)
+        {
+            return _context.Players.FirstOrDefault(r => r.Username == username && r.Password == password);
+        }*/
+
+    public Player LoginPlayer(string username)
     {
-        return _context.Players.FirstOrDefault(r => r.Username == username && r.Password == password);
+        return _context.Players.FirstOrDefault(r => r.Username == username);
     }
 
     public bool IsDuplicate(Player player)

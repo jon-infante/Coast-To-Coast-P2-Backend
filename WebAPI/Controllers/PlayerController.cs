@@ -44,27 +44,50 @@ namespace WebAPI.Controllers
                 return NoContent();
             }
         }
-        
+
         // GET api/<PlayerController>
-        [HttpGet("login/{username}")]
-        public ActionResult GetLoginPlayer(string username, string password)
+        /*        [HttpGet("login/{username}")]
+                public ActionResult GetLoginPlayer(string username, string password)
+                {
+                    Player currentPlayer = _bl.LoginPlayer(username, password);
+                    if (currentPlayer.ID <= 0)
+                    {
+                        return BadRequest("User does not exist");
+                    }
+                    else
+                    {
+                        if (currentPlayer.Password == password)
+                        {
+                            return Ok("You've successfully logged in");
+                        }
+                        else
+                        {
+                            return BadRequest("Incorrect password");
+                        }
+                    }
+                }*/
+
+        //possible fix
+       [HttpGet("login/{username}")]
+        public ActionResult GetLoginPlayer(string username)
         {
-            Player currentPlayer = _bl.LoginPlayer(username, password);
-            if (currentPlayer.ID <= 0)
+            Player currentPlayer = _bl.LoginPlayer(username);
+            if (currentPlayer == null)
             {
-                return BadRequest("User does not exist");
+                Console.WriteLine("player doesn't exist, adding new player");
+                Player playerToAdd = new Player();
+                playerToAdd.Username = username;
+                playerToAdd.Password = "";
+                _bl.AddNewPlayerAccount(playerToAdd);
+                return Created("Successfully added player: ", playerToAdd);
             }
             else
             {
-                if (currentPlayer.Password == password)
-                {
-                    return Ok("You've successfully logged in");
-                }
-                else
-                {
-                    return BadRequest("Incorrect password");
-                }
+                return Ok("player logged in");
             }
+
+
+
         }
 
         // POST api/<PlayerController>

@@ -149,8 +149,13 @@ public class P2BL : IBL
         return _dl.GetAllPlayersWithDrawings();
     }
 
-    public Player LoginPlayer(string username, string password){
-        return _dl.LoginPlayer(username, password);
+    /*    public Player LoginPlayer(string username, string password){
+            return _dl.LoginPlayer(username, password);
+        }*/
+
+    public Player LoginPlayer(string username)
+    {
+        return _dl.LoginPlayer(username);
     }
 
     public bool IsDuplicate(Player player)
