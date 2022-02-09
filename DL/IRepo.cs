@@ -41,7 +41,11 @@ public interface IRepo
     //Drawings
     void AddDrawing(Drawing drawingToAdd);
 
+    void UpdateDrawing(Drawing drawingToUpdate);
+
     Drawing GetDrawingByID(int DrawingID);
+
+    List<Drawing> GetAllDrawings();
 
     List<Drawing> GetAllDrawingsByPlayerID(int playerID);
   
@@ -50,6 +54,7 @@ public interface IRepo
     void DeleteDrawingByID(int DrawingID);
 
     //Wall Posts
+    List<WallPost> GetAllWallPosts();
     void AddWallpost(WallPost wallpostToAdd);
 
     WallPost GetWallpostByID(int WallpostID);
@@ -63,6 +68,8 @@ public interface IRepo
     void AddNewPlayerAccount(Player playerToAdd);
 
     Player? GetPlayerByIDWithDrawings(int playerID);
+
+    Player? GetPlayerByUsernameWithDrawings(string username);
 
     void DeletePlayerByID(int playerID);
 

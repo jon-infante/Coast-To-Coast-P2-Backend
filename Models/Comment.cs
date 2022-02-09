@@ -14,4 +14,6 @@ public class Comment {
     public List<Like> Likes { get; set; }
 
     public string Date { get; set; }
+
+    public bool isLiked { get; set; }
 }

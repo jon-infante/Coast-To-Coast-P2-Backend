@@ -7,6 +7,8 @@ public class Drawing
 
         public int PlayerID { get; set; }
 
+        public string PlayerName { get; set; }
+
         public int WallPostID { get; set; }
 
         public string Keyword { get; set; }
@@ -22,5 +24,7 @@ public class Drawing
         public List<Like> Likes { get; set; }
 
         public string Date { get; set; }
+        
+        public bool isLiked { get; set; }
 
 }

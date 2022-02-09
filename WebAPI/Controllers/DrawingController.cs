@@ -29,6 +29,19 @@ namespace WebAPI.Controllers
             return NoContent();
                 
         }
+        // GET: api/<DrawingController>
+        [HttpGet]
+        public ActionResult<List<Drawing>> GetAllDrawings()
+        {
+            List<Drawing> allDrawings = _bl.GetAllDrawings();
+
+            if (allDrawings != null)
+            {
+                return Ok(allDrawings);
+            }
+            //Not found
+            return NoContent();
+        }
 
         // GET: api/<DrawingController>
         [HttpGet("player/{playerID}")]
@@ -61,10 +74,19 @@ namespace WebAPI.Controllers
 
         // POST api/<DrawingController>
         [HttpPost]
-        public ActionResult PostDrawing([FromBody] Drawing drawingToAdd)
-        {
+        public ActionResult<Drawing> PostDrawing([FromBody] Drawing drawingToAdd)
+        {   
+
             _bl.AddDrawing(drawingToAdd);
-            return Ok();
+            return Ok(drawingToAdd);
+        }
+        // PUT api/<DrawingController>
+        [HttpPut]
+        public ActionResult<Drawing> UpdateDrawing([FromBody] Drawing drawingToUpdate)
+        {
+        
+            _bl.UpdateDrawing(drawingToUpdate);
+            return Ok(drawingToUpdate);
         }
 
 

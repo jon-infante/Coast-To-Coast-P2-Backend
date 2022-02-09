@@ -45,6 +45,7 @@ namespace WebAPI.Controllers
             }
         }
 
+<<<<<<< HEAD
 
 
         //possible fix
@@ -72,6 +73,48 @@ namespace WebAPI.Controllers
         }
 
 /*        //possible fix
+=======
+        // GET api/<PlayerController>
+        [HttpGet("user/{username}")]
+        public ActionResult<Player> GetPlayerByID(string username)
+        {
+            Player foundPlayer = _bl.GetPlayerByUsernameWithDrawings(username);
+            if (foundPlayer != null)
+            {
+                return Ok(foundPlayer);
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+
+
+        // GET api/<PlayerController>
+        /*        [HttpGet("login/{username}")]
+                public ActionResult GetLoginPlayer(string username, string password)
+                {
+                    Player currentPlayer = _bl.LoginPlayer(username, password);
+                    if (currentPlayer.ID <= 0)
+                    {
+                        return BadRequest("User does not exist");
+                    }
+                    else
+                    {
+                        if (currentPlayer.Password == password)
+                        {
+                            return Ok("You've successfully logged in");
+                        }
+                        else
+                        {
+                            return BadRequest("Incorrect password");
+                        }
+                    }
+                }*/
+
+        //possible fix
+>>>>>>> 59702a3a4ca9be85527de3f23b11e97b10fa4ac1
         [HttpGet("login/{username}")]
         public ActionResult GetLoginPlayer(string username)
         {
@@ -81,7 +124,7 @@ namespace WebAPI.Controllers
                 Console.WriteLine("player doesn't exist, adding new player");
                 Player playerToAdd = new Player();
                 playerToAdd.Username = username;
-                playerToAdd.Password = "";
+                playerToAdd.Password = "empty";
                 _bl.AddNewPlayerAccount(playerToAdd);
                 return Created("Successfully added player: ", playerToAdd);
             }
