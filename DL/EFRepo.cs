@@ -202,6 +202,12 @@ public class EFRepo : IRepo
         return _context.Players.Include(r => r.Drawings).FirstOrDefault(r => r.Username == username);
     }
 
+    public void UpdatePlayer(Player playerToUpdate){
+        _context.Update(playerToUpdate);
+        _context.SaveChanges();
+        _context.ChangeTracker.Clear();
+    }
+
     public void DeletePlayerByID(int playerID)
     {
         Player player = GetPlayerByIDWithDrawings(playerID);

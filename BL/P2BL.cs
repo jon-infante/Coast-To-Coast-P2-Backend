@@ -144,6 +144,10 @@ public class P2BL : IBL
         return _dl.GetPlayerByUsernameWithDrawings(username);
     }
 
+    public void UpdatePlayer(Player playerToUpdate){
+        _dl.UpdatePlayer(playerToUpdate);
+    }
+
 
     public void DeletePlayerByID(int playerID){
         _dl.DeletePlayerByID(playerID);

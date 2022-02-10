@@ -102,7 +102,15 @@ namespace WebAPI.Controllers
             {
                 return Ok("player logged in");
             }
+        }
 
+        // PUT api/<PlayerController>
+        [HttpPut]
+        public ActionResult<Player> UpdatePlayer([FromBody] Player playerToUpdate)
+        {
+        
+            _bl.UpdatePlayer(playerToUpdate);
+            return Ok(playerToUpdate);
         }
 
         // POST api/<PlayerController>
